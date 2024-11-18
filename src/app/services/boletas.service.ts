@@ -14,12 +14,28 @@ export class BoletasService {
     return this.http.get(this.apiUrl);
   }
 
+  obtenerBoletaPorId(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
   crearBoleta(data: any): Observable<any> {
     return this.http.post(this.apiUrl, data);
   }
 
+  actualizarBoleta(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, data);
+  }
+
   eliminarBoleta(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  obtenerBoletasPaginadas(page: number, size: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/paginadas?page=${page}&size=${size}`);
+  }
+
+  filtrarBoletas(campo: string, valor: string, page: number, size: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/filtrar?campo=${campo}&valor=${valor}&page=${page}&size=${size}`);
   }
 }
 

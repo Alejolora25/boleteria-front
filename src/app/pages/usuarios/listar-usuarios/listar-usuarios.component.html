@@ -1,1 +1,36 @@
-<p>listar-usuarios works!</p>
+<div class="container mt-4">
+    <h2>Listado de Usuarios</h2>
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar usuario..."
+        [(ngModel)]="filtro"
+        (input)="filtrarUsuarios()"
+      />
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuariosFiltrados; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.correo }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="editarUsuario(usuario.id)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminarUsuario(usuario.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary" routerLink="/usuarios/crear">Crear Usuario</button>
+  </div>
+  
+  

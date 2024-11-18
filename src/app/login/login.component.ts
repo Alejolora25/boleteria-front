@@ -29,6 +29,7 @@ export class LoginComponent {
       next: (response: any) => {
         // Asumiendo que el backend devuelve un objeto con 'token'
         if (response.token) {
+          console.log('Token recibido:', response.token); // Asegúrate de que el token está presente
           localStorage.setItem('token', response.token);
           alert('Inicio de sesión exitoso');
           this.router.navigate(['/home']); // Redirigir al home
