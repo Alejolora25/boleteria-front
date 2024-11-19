@@ -1,22 +1,55 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="showMenu">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/home">Boletería</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="toggleMenu()"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+          <a
+            class="nav-link"
+            routerLink="/home"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            >Home</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/boletas" routerLinkActive="active">Boletas</a>
+          <a
+            class="nav-link"
+            routerLink="/boletas"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            >Boletas</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/eventos" routerLinkActive="active">Eventos</a>
+          <a
+            class="nav-link"
+            routerLink="/eventos"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            >Eventos</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/usuarios" routerLinkActive="active">Usuarios</a>
+          <a
+            class="nav-link"
+            routerLink="/usuarios"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            >Usuarios</a
+          >
         </li>
       </ul>
       <button class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
@@ -24,3 +57,4 @@
   </div>
 </nav>
 <router-outlet></router-outlet>
+

@@ -17,13 +17,15 @@ export class ListarBoletasComponent implements OnInit {
   filtro = '';
   criterio = 'nombre'; // Por defecto, buscar por nombre
   page = 0;
-  size = 5;
+  size = 20;
   totalPages = 0;
+  esAdmin = false; // Nueva bandera para controlar acceso al botón Editar
   private searchSubject = new Subject<string>();
 
   constructor(private boletasService: BoletasService, private router: Router) {}
 
   ngOnInit(): void {
+    this.verificarRol(); // Verificar si el usuario es admin
     this.cargarBoletas();
 
     // Configurar debounce para el campo de búsqueda
@@ -34,6 +36,14 @@ export class ListarBoletasComponent implements OnInit {
         this.cargarBoletas();
       }
     });
+  }
+
+  verificarRol(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      this.esAdmin = payload.roles.includes('ROLE_ADMIN');
+    }
   }
 
   cargarBoletas(): void {
@@ -80,7 +90,11 @@ export class ListarBoletasComponent implements OnInit {
   }
 
   editarBoleta(id: number): void {
-    this.router.navigate([`/boletas/editar`, id]);
+    if (this.esAdmin) {
+      this.router.navigate([`/boletas/editar`, id]);
+    } else {
+      alert('Acceso denegado. Solo los administradores pueden editar boletas.');
+    }
   }
 
   eliminarBoleta(id: number): void {
@@ -94,4 +108,9 @@ export class ListarBoletasComponent implements OnInit {
       });
     }
   }
+
+  verBoleta(id: number): void {
+    this.router.navigate([`/boletas/ver`, id]);
+  }
+  
 }

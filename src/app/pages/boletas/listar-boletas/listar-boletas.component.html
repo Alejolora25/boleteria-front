@@ -38,7 +38,11 @@
           <td>{{ boleta.correoComprador }}</td>
           <td>{{ boleta.celular }}</td>
           <td>
-            <button class="btn btn-warning btn-sm" (click)="editarBoleta(boleta.id)">Editar</button>
+            <button class="btn btn-success btn-sm" (click)="verBoleta(boleta.id)">Ver Detalle</button>
+            <!-- Mostrar el botón Editar solo si el usuario es admin -->
+            <button *ngIf="esAdmin" class="btn btn-warning btn-sm" (click)="editarBoleta(boleta.id)">
+              Editar
+            </button>
             <button class="btn btn-danger btn-sm" (click)="eliminarBoleta(boleta.id)">Eliminar</button>
           </td>
         </tr>

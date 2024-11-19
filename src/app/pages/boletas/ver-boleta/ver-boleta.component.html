@@ -1,0 +1,28 @@
+<div class="container mt-4">
+    <h2>Detalle de la Boleta</h2>
+  
+    <div *ngIf="boletaData" class="boleta-detail">
+      <p><strong>Nombre:</strong> {{ boletaData.nombreComprador }}</p>
+      <p><strong>Identificación:</strong> {{ boletaData.identificacionComprador }}</p>
+      <p><strong>Correo:</strong> {{ boletaData.correoComprador }}</p>
+      <p><strong>Celular:</strong> {{ boletaData.celular }}</p>
+      <p><strong>Edad:</strong> {{ boletaData.edad }}</p>
+      <p><strong>Evento:</strong> {{ boletaData.evento.nombre }}</p>
+      <p><strong>Tipo:</strong> {{ boletaData.tipo }}</p>
+      <p><strong>Estado:</strong> {{ boletaData.estado }}</p>
+      <p><strong>Fecha de Compra:</strong> {{ boletaData.fechaCompra | date }}</p>
+  
+      <div class="qr-container">
+        <qrcode 
+          [qrdata]="qrData" 
+          [width]="200" 
+          [errorCorrectionLevel]="'M'"
+          elementType="canvas">
+        </qrcode>
+      </div>
+  
+      <button class="btn btn-primary mt-3" (click)="descargarPDF()">Descargar PDF</button>
+      <button class="btn btn-secondary mt-3" (click)="regresar()">Regresar</button>
+    </div>
+  </div>
+  

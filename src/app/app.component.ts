@@ -27,6 +27,14 @@ export class AppComponent implements OnInit {
     this.menuOpen = !this.menuOpen;
   }
 
+  closeMenu() {
+    const menu = document.querySelector('.navbar-collapse');
+    if (menu?.classList.contains('show')) {
+      menu.classList.remove('show'); // Cierra el menú
+    }
+    this.menuOpen = false;
+  }
+
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
