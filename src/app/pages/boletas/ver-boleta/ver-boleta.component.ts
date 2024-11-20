@@ -68,4 +68,27 @@ export class VerBoletaComponent implements OnInit {
   regresar(): void {
     this.router.navigate(['/boletas']);
   }
+
+  enviarBoleta(): void {
+    if (!this.boletaData?.id) {
+      console.error('No se encontró el ID de la boleta.');
+      return;
+    }
+    this.boletasService.enviarBoleta(this.boletaData.id).subscribe({
+      next: (response) => {
+        if (response.status === 200) {
+          alert('Boleta enviada con éxito al correo del comprador.');
+        } else {
+          console.error('Respuesta inesperada:', response);
+          alert('Ocurrió un error inesperado al enviar la boleta.');
+        }
+      },
+      error: (err) => {
+        console.error('Error al enviar la boleta', err);
+        alert('Ocurrió un error al enviar la boleta. Por favor, inténtalo nuevamente.');
+      },
+    });
+  }
+  
+  
 }

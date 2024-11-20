@@ -37,5 +37,10 @@ export class BoletasService {
   filtrarBoletas(campo: string, valor: string, page: number, size: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/filtrar?campo=${campo}&valor=${valor}&page=${page}&size=${size}`);
   }
+
+  enviarBoleta(id: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${id}/enviar`, {}, { observe: 'response' });
+  }  
+  
 }
 
