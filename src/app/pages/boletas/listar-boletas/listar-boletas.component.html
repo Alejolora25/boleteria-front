@@ -1,0 +1,85 @@
+<div class="container mt-4">
+    <h2>Listado de Boletas</h2>
+
+    <!-- Selector de criterio -->
+    <div class="mb-3">
+        <label for="criterio">Filtrar por:</label>
+        <select id="criterio" class="form-select" [(ngModel)]="criterio">
+        <option value="nombre">Nombre</option>
+        <option value="identificacion">Identificación</option>
+        <option value="correo">Correo</option>
+        <option value="telefono">Teléfono</option>
+        </select>
+        <input
+        type="text"
+        class="form-control mt-2"
+        placeholder="Buscar..."
+        [(ngModel)]="filtro"
+        (input)="onSearchInputChange(filtro)"
+        />
+    </div>
+
+    <!-- Filtro por vendedor -->
+    <div class="mb-3">
+      <label for="vendedorSeleccionado">Seleccionar Vendedor:</label>
+      <select
+          id="vendedorSeleccionado"
+          class="form-select"
+          [(ngModel)]="vendedorSeleccionado"
+          (change)="aplicarFiltros()"
+      >
+          <option value="">Todos los vendedores</option>
+          <option *ngFor="let vendedor of vendedores" [value]="vendedor.nombre">
+              {{ vendedor.nombre }}
+          </option>
+      </select>
+  </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Comprador</th>
+          <th>Identificación</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let boleta of boletas; let i = index">
+          <td>{{ boleta.id }}</td> 
+          <td>{{ boleta.nombreComprador }}</td>
+          <td>{{ boleta.identificacionComprador }}</td>
+          <td>{{ boleta.correoComprador }}</td>
+          <td>{{ boleta.celular }}</td>
+          <td>
+            <button class="btn btn-success btn-sm" (click)="verBoleta(boleta.id)">Ver Detalle</button>
+            <!-- Mostrar el botón Editar solo si el usuario es admin -->
+            <button *ngIf="esAdmin" class="btn btn-warning btn-sm" (click)="editarBoleta(boleta.id)">
+              Editar
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="eliminarBoleta(boleta.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center mt-4">
+        <button
+        class="btn btn-secondary"
+        (click)="cambiarPagina(page - 1)"
+        [disabled]="page === 0"
+        >
+        Anterior
+        </button>
+        <button
+        class="btn btn-secondary ms-2"
+        (click)="cambiarPagina(page + 1)"
+        [disabled]="page === totalPages - 1"
+        >
+        Siguiente
+        </button>
+    </div>
+    <button class="btn btn-primary" routerLink="/boletas/crear">Crear Boleta</button>
+  </div>  

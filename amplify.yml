@@ -1,0 +1,16 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install # Instala las dependencias
+    build:
+      commands:
+        - ng build --configuration production # Construye la aplicación en modo producción
+  artifacts:
+    baseDirectory: dist/boleteria-app/browser # Ajusta para reflejar la subcarpeta browser
+    files:
+      - "**/*" # Incluye todos los archivos en esta carpeta
+  cache:
+    paths:
+      - node_modules/**/* # Acelera la construcción al cachear dependencias

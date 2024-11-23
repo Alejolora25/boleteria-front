@@ -1,0 +1,58 @@
+<div class="container mt-4">
+    <h2>Editar Usuario</h2>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      {{ successMessage }}
+    </div>
+    <form (ngSubmit)="actualizarUsuario()" #usuarioForm="ngForm" class="mt-3">
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input
+          type="text"
+          id="nombre"
+          class="form-control"
+          placeholder="Ingrese el nombre"
+          [(ngModel)]="usuario.nombre"
+          name="nombre"
+          required
+        />
+      </div>
+  
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo Electrónico</label>
+        <input
+          type="email"
+          id="correo"
+          class="form-control"
+          placeholder="Ingrese el correo electrónico"
+          [(ngModel)]="usuario.correo"
+          name="correo"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña (opcional)</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="Ingrese una nueva contraseña si desea cambiarla"
+          [(ngModel)]="usuario.password"
+          name="password"
+          #passwordInput="ngModel"
+          minlength="6"
+        />
+        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+          La contraseña debe tener al menos 6 caracteres si se ingresa.
+        </div>
+      </div>
+      
+  
+      <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+    </form>
+  </div>
+  

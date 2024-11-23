@@ -1,0 +1,60 @@
+<div class="container mt-4">
+    <h2>Listado de Eventos</h2>
+    
+    <!-- Campo de búsqueda -->
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar evento..."
+        [(ngModel)]="filtro"
+        (input)="filtrarEventos()"
+      />
+    </div>
+  
+    <!-- Tabla de eventos -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Fecha</th>
+          <th>Lugar</th>
+          <th>Capacidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let evento of eventosFiltrados; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ evento.nombre }}</td>
+          <td>{{ evento.descripcion }}</td>
+          <td>{{ evento.fecha | date: 'short' }}</td>
+          <td>{{ evento.lugar }}</td>
+          <td>{{ evento.capacidad }}</td>
+          <td>
+            <button
+              class="btn btn-warning btn-sm"
+              (click)="editarEvento(evento.id)"
+            >
+              Editar
+            </button>
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="eliminarEvento(evento.id)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Botón para crear un nuevo evento -->
+    <button class="btn btn-primary mt-3" routerLink="/eventos/crear">
+      Crear Evento
+    </button>
+  </div>
+  
+  
