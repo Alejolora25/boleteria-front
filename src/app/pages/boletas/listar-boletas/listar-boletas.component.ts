@@ -14,8 +14,10 @@ import { debounceTime, Subject } from 'rxjs';
 })
 export class ListarBoletasComponent implements OnInit {
   boletas: any[] = [];
+  vendedores: any[] = []; // Lista de vendedores
   filtro = '';
   criterio = 'nombre'; // Por defecto, buscar por nombre
+  vendedorSeleccionado: string = ''; // Vendedor seleccionado
   page = 0;
   size = 20;
   totalPages = 0;
@@ -27,14 +29,11 @@ export class ListarBoletasComponent implements OnInit {
   ngOnInit(): void {
     this.verificarRol(); // Verificar si el usuario es admin
     this.cargarBoletas();
+    this.cargarVendedores(); // Cargar la lista de vendedores
 
     // Configurar debounce para el campo de búsqueda
     this.searchSubject.pipe(debounceTime(1000)).subscribe((valor) => {
-      if (valor) {
-        this.filtrarBoletas(valor);
-      } else {
-        this.cargarBoletas();
-      }
+      this.aplicarFiltros();
     });
   }
 
@@ -56,15 +55,45 @@ export class ListarBoletasComponent implements OnInit {
     });
   }
 
-  filtrarBoletas(valor: string): void {
-    this.page = 0; // Reiniciar a la página 0 antes de buscar
-    this.boletasService.filtrarBoletas(this.criterio, valor, this.page, this.size).subscribe({
+  cargarVendedores(): void {
+    this.boletasService.obtenerVendedores().subscribe({
       next: (data) => {
-        this.boletas = data.content;
-        this.totalPages = data.totalPages;
+        this.vendedores = data; // Cargar los vendedores
       },
-      error: (err) => console.error('Error al filtrar boletas', err),
+      error: (err) => console.error('Error al cargar vendedores', err),
     });
+  }
+
+  aplicarFiltros(): void {
+    if (this.vendedorSeleccionado) {
+      // Filtrar por vendedor y criterio
+      this.boletasService
+        .filtrarBoletasPorVendedorYCampo(
+          this.vendedorSeleccionado,
+          this.criterio,
+          this.filtro,
+          this.page,
+          this.size
+        )
+        .subscribe({
+          next: (data) => {
+            this.boletas = data.content;
+            this.totalPages = data.totalPages;
+          },
+          error: (err) => console.error('Error al filtrar boletas', err),
+        });
+    } else {
+      // Solo filtrar por criterio
+      this.boletasService
+        .filtrarBoletas(this.criterio, this.filtro, this.page, this.size)
+        .subscribe({
+          next: (data) => {
+            this.boletas = data.content;
+            this.totalPages = data.totalPages;
+          },
+          error: (err) => console.error('Error al filtrar boletas', err),
+        });
+    }
   }
 
   onSearchInputChange(valor: string): void {
@@ -74,19 +103,7 @@ export class ListarBoletasComponent implements OnInit {
 
   cambiarPagina(pagina: number): void {
     this.page = pagina;
-    if (this.filtro) {
-      // Continuar paginación con filtro aplicado
-      this.boletasService.filtrarBoletas(this.criterio, this.filtro, this.page, this.size).subscribe({
-        next: (data) => {
-          this.boletas = data.content;
-          this.totalPages = data.totalPages;
-        },
-        error: (err) => console.error('Error al cargar página filtrada', err),
-      });
-    } else {
-      // Continuar paginación sin filtro
-      this.cargarBoletas();
-    }
+    this.aplicarFiltros();
   }
 
   editarBoleta(id: number): void {

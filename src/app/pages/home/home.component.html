@@ -1,1 +1,60 @@
-<p>home works!</p>
+<div class="container mt-4">
+    <h1 class="text-center">Estadísticas de Ventas</h1>
+  
+    <div *ngIf="cargando" class="text-center">
+      <p>Cargando estadísticas...</p>
+    </div>
+  
+    <div *ngIf="!cargando">
+      <h3>Estadísticas Generales</h3>
+      <ul>
+        <li><strong>Total de Boletas Vendidas:</strong> {{ estadisticas.totalVendidas }}</li>
+        <li><strong>Total de Boletas Usadas:</strong> {{ estadisticas.totalUsadas }}</li>
+        <li><strong>Ingresos Totales:</strong> {{ estadisticas.ingresosTotales | currency }}</li>
+        <li><strong>Ingresos por Boletas VIP:</strong> {{ estadisticas.ingresosVIP | currency }}</li>
+        <li><strong>Ingresos por Boletas Generales:</strong> {{ estadisticas.ingresosGeneral | currency }}</li>
+        <li><strong>Total Boletas VIP Vendidas:</strong> {{ estadisticas.boletasVIP }}</li>
+        <li><strong>Total Boletas Generales Vendidas:</strong> {{ estadisticas.boletasGeneral }}</li>
+      </ul>
+  
+      <h3>Estadísticas por Vendedor</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Vendedor</th>
+            <th>Boletas Vendidas</th>
+            <th>Ingresos Totales</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vendedor of boletasPorVendedor">
+            <td>{{ vendedor[0] }}</td>
+            <td>{{ vendedor[1] }}</td>
+            <td>{{ obtenerIngresoPorVendedor(vendedor[0]) | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <h3>Estadísticas de Clientes</h3>
+      <ul>
+        <li><strong>Edad Promedio de los Compradores:</strong> {{ estadisticas.edadPromedio | number:'1.0-1' }} años</li>
+        <li>
+          <strong>Top Clientes:</strong>
+          <ul>
+            <li *ngFor="let cliente of topClientes">
+              {{ cliente[0] }} - {{ cliente[1] }} compras
+            </li>
+          </ul>
+        </li>
+      </ul>
+  
+      <h3>Porcentaje de Ventas por Método de Pago</h3>
+      <ul>
+        <li *ngFor="let metodo of porcentajeMetodoPago">
+          {{ metodo[0] }}: {{ obtenerPorcentajeMetodoPago(metodo[0]) | number:'1.0-1' }}%
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  

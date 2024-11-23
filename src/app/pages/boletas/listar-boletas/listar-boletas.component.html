@@ -19,10 +19,26 @@
         />
     </div>
 
+    <!-- Filtro por vendedor -->
+    <div class="mb-3">
+      <label for="vendedorSeleccionado">Seleccionar Vendedor:</label>
+      <select
+          id="vendedorSeleccionado"
+          class="form-select"
+          [(ngModel)]="vendedorSeleccionado"
+          (change)="aplicarFiltros()"
+      >
+          <option value="">Todos los vendedores</option>
+          <option *ngFor="let vendedor of vendedores" [value]="vendedor.nombre">
+              {{ vendedor.nombre }}
+          </option>
+      </select>
+  </div>
+
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>#</th>
+          <th>ID</th>
           <th>Comprador</th>
           <th>Identificación</th>
           <th>Correo</th>
@@ -32,7 +48,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let boleta of boletas; let i = index">
-          <td>{{ i + 1 }}</td>
+          <td>{{ boleta.id }}</td> 
           <td>{{ boleta.nombreComprador }}</td>
           <td>{{ boleta.identificacionComprador }}</td>
           <td>{{ boleta.correoComprador }}</td>

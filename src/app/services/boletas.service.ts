@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment'; // Importar el archivo environment
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoletasService {
-  private apiUrl = 'http://localhost:8080/api/boletas';
+  private apiUrl = `${environment.apiUrl}/boletas`; // Centralizar la URL
 
   constructor(private http: HttpClient) {}
 
@@ -41,6 +42,23 @@ export class BoletasService {
   enviarBoleta(id: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/${id}/enviar`, {}, { observe: 'response' });
   }  
+
+  obtenerVendedores(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/vendedores`);
+  }
+
+  filtrarBoletasPorVendedorYCampo(
+    vendedor: string,
+    campo: string,
+    valor: string,
+    page: number,
+    size: number
+  ): Observable<any> {
+    const url = `${this.apiUrl}/filtrar-por-vendedor?nombreVendedor=${encodeURIComponent(vendedor)}&campo=${encodeURIComponent(campo)}&valor=${encodeURIComponent(valor)}&page=${page}&size=${size}`;
+    return this.http.get(url);
+  }
+  
+  
   
 }
 
