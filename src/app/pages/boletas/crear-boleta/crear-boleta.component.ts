@@ -30,8 +30,8 @@ export class CrearBoletaComponent implements OnInit{
 
   eventos: any[] = []; // Lista de eventos disponibles
   metodosPago = ['Efectivo', 'Nequi', 'Transferencia', 'Tarjeta Débito', 'Tarjeta Crédito'];
-  etapasVenta = ['Preventa Etapa 1', 'Preventa Etapa 2', 'Precio Full'];
-  tiposBoleta = ['General', 'VIP'];
+  etapasVenta = ['Preventa', 'Etapa 1', 'Etapa 2', 'Precio Full', 'Cortesía'];
+  tiposBoleta = ['General', 'VIP', 'Palco'];
 
   constructor(private boletasService: BoletasService, private eventosService: EventosService, private router: Router) {}
 

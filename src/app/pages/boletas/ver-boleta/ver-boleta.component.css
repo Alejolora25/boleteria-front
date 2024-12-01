@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .image-container {
+    margin-bottom: 20px;
+  }
+  
+  .evento-banner {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+  }
+  
+  .boleta-detail {
+    background: #fff;
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+  }
+  
+  .qr-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  strong {
+    font-weight: bold;
+  }
+  
