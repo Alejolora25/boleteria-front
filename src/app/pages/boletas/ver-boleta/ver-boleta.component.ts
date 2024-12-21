@@ -48,7 +48,7 @@ export class VerBoletaComponent implements OnInit {
     });
   
     const img = new Image();
-    img.src = 'assets/images/fondoBoleteriaW.png'; // Ruta de la imagen de fondo
+    img.src = 'assets/images/fondoBoleteriaWPK.png'; // Ruta de la imagen de fondo
   
     img.onload = () => {
       // Convertir dimensiones de la imagen a milímetros
